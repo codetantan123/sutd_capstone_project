@@ -1,0 +1,176 @@
+body {
+  font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
+  font-size: small;
+  margin: 0;
+  background-color: #c1cfe9;
+}
+
+#header {
+  padding-left: 10px;
+  background-color: #ffffff;
+  width: 100%;
+  height: 45px;
+}
+
+#logo-img {
+  border: 0;
+  width: 90px;
+  vertical-align: middle;
+}
+
+#logo-div {
+  height: inherit;
+  display: inline-block;
+}
+
+#intro-text-div {
+  height: inherit;
+  display: inline-block;
+  font-size: medium;
+  font-weight: bold;
+  vertical-align: text-top;
+}
+
+#intro-text {
+  color: #546a8d;
+}
+
+#page-content {
+  /* margin-top: 50px; */
+  padding: 10px;
+}
+
+#navigation-bar {
+  text-align: center;
+  /* margin-top: 10px; */
+}
+
+.navigate-buttons {
+  cursor: pointer;
+  font-family: "Comic Sans MS";
+  background-color: white;
+  border: solid 2px;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 2px 12px 3px;
+}
+
+.navigate-buttons:hover {
+  border-color: #546a8d;
+  color: #546a8d;
+}
+
+#search-bar {
+  text-align: center;
+  margin: 10px 0 5px;
+  border-radius: 3px;
+}
+
+#search-group {
+  border: 2px solid;
+  border-radius: 3px;
+  background-color: white;
+  max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#search-box {
+  outline: transparent;
+  border: transparent;
+  padding: 0px 5px 0px 55px;
+  height: 25px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  margin-right: 0;
+}
+
+#search-button {
+  margin-left: 0;
+  background-color: white;
+  border-left: 2px solid black;
+  border-right: transparent;
+  border-top: transparent;
+  border-bottom: transparent;
+  height: 25px;
+  outline: transparent;
+  cursor: pointer;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+  font-weight: bold;
+}
+
+#search-button:hover {
+  color: #546a8d;
+}
+
+.comic-title {
+  text-align: center;
+  font-size: small;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+#comic-section {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.comic-tile {
+  max-width: 17%;
+  margin: 0.5%;
+  padding: 0.5%;
+  display: inline-block;
+  vertical-align: middle;
+  border: solid 2px;
+  background-color: white;
+}
+
+#comic-no-dropdown {
+  border: 2px solid;
+  border-radius: 3px;
+  outline: none;
+  font-weight: bold;
+  padding: 0px 2px;
+}
+
+img {
+  width: 100%;
+}
+
+#display-bar {
+  margin-top: 20px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#loading-bar {
+  width: 100%;
+  text-align: center;
+  min-height: 160px;
+  margin-top: 80px;
+}
+
+#loading-gif {
+  max-width: 40px;
+  height: 40px;
+}
+
+#error-bar {
+  margin-top: 10px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#error-msg {
+  color: darkred;
+  background-color: #fdf4e6;
+  padding: 10px 20px 10px;
+  border: solid darkred 2px;
+}
+
+.hidden {
+  display: none !important;
+}

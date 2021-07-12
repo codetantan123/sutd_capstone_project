@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>XKCD Comics</title>
+    <link rel="stylesheet" href="src/styles.css" />
+    <script type="text/javascript" src="src/index.js"></script>
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo-div">
+            <img id="logo-img" src="https://xkcd.com/s/0b7742.png" alt="xkcd.com logo" />
+        </div>
+        <div id="intro-text-div"><span id="intro-text">A webcomic of romance, sarcasm, math, and language.</span></div>
+
+        <div id="page-content">
+            <div id="navigation-bar">
+                <button id="prev-button" class="navigate-buttons" >&lt;&lt;</button>
+                <button id="random-button" class="navigate-buttons"  title="Display random comics">Random</button>
+                <button id="next-button" class="navigate-buttons" >&gt;&gt;</button>
+            </div>
+            <div id="search-bar">
+                <div id="search-group">
+                    <input type="number" id="search-box" max=2475 min=1 title="Enter a number between 1 to 2475"></input>
+                    <button id="search-button">Go</button>
+                </div>
+            </div>
+            <div id="error-bar" class="hidden">
+                <span id="error-msg">ERROR: Invalid number!</span>
+            </div>
+            <div id="loading-bar">
+                <img id="loading-gif" src="https://i.stack.imgur.com/kOnzy.gif">
+            </div>
+            <div id="comic-section" class="hidden">
+                <div id="comic-tile-1" class="comic-tile">
+                    <div id="comic-title-1" class="comic-title"></div>
+                    <div id="comic-img-1" class="comic-img"></div>
+                </div>
+                <div id="comic-tile-2" class="comic-tile">
+                    <div id="comic-title-2" class="comic-title"></div>
+                    <div id="comic-img-2" class="comic-img"></div>
+                </div>
+                <div id="comic-tile-3" class="comic-tile">
+                    <div id="comic-title-3" class="comic-title"></div>
+                    <div id="comic-img-3" class="comic-img"></div>
+                </div>
+            </div>
+
+            <div id="display-bar">
+                <label>Show</label>
+                <select name="comic-no" id="comic-no-dropdown">
+                    <option value="1">1</option>
+                    <option value="3" selected>3</option>
+                    <option value="5">5</option>
+                </select>
+                <label>comics per page</label>
+            </div>
+        </div>
+</body>
+
+</html>
