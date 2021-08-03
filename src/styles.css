@@ -78,6 +78,8 @@ body {
   #search-box {
     outline: transparent;
     border: transparent;
+    font-family: "Comic Sans MS";
+    font-weight: bold;
     padding: 0px 5px 0px 55px;
     height: 25px;
     border-top-left-radius: 3px;
@@ -87,8 +89,8 @@ body {
   
   #search-button {
     margin-left: 0;
-    font-family: "Comic Sans MS";
     background-color: white;
+    font-family: "Comic Sans MS";
     border-left: 2px solid black;
     border-right: transparent;
     border-top: transparent;
@@ -138,6 +140,8 @@ body {
   
   #comic-no-dropdown {
     border: 2px solid;
+    font-family: "Comic Sans MS";
+    font-weight: bold;
     border-radius: 3px;
     outline: none;
     font-weight: bold;
@@ -184,3 +188,4 @@ body {
   .hidden {
     display: none !important;
   }
+  
