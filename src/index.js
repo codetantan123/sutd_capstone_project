@@ -226,6 +226,7 @@ document
     .getElementById("next-button")
     .addEventListener("click", loadNextComics);
 document.getElementById("search-box").addEventListener("keydown", enterSearch);
+document.getElementById("search-box").addEventListener("click", removeSearchedComicNumber);
 document.getElementById("search-button").addEventListener("click", goToComicNo);
 document
     .getElementById("comic-no-dropdown")
