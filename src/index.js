@@ -89,6 +89,7 @@ async function updateComicPage(currentComic, displayNumber) {
  * @return {void}
  */
 function loadPrevComics() {
+    removeSearchedComicNumber();
     displayLoading();
     currentComic -= displayNumber;
     updateComicPage(currentComic, displayNumber);
@@ -100,6 +101,7 @@ function loadPrevComics() {
  * @return {void}
  */
 function loadNextComics() {
+    removeSearchedComicNumber();
     displayLoading();
     currentComic += displayNumber;
     updateComicPage(currentComic, displayNumber);
@@ -110,6 +112,7 @@ function loadNextComics() {
  * @return {void}
  */
 function loadRandomComics() {
+    removeSearchedComicNumber();
     displayLoading();
 
     const getRandomIntInclusive = (min, max) => {
@@ -180,13 +183,21 @@ function changeDisplayNumber() {
  */
 function displayLoading() {
     clearTimeout(timerId);
-    document.getElementById("search-box").value = "";
+    // document.getElementById("search-box").value = "";
     let errorMsg = document.querySelector("#error-bar");
     errorMsg.classList.add("hidden");
     let section = document.querySelector("#comic-section");
     section.classList.add("hidden");
     let loading = document.querySelector("#loading-bar");
     loading.classList.remove("hidden");
+}
+
+/**
+ * Removes previously searched comic number to allow users enter a new search
+ * @return {void}
+ */
+function removeSearchedComicNumber() {
+    document.getElementById("search-box").value = "";
 }
 
 /**
