@@ -87,6 +87,7 @@ body {
   
   #search-button {
     margin-left: 0;
+    font-family: "Comic Sans MS";
     background-color: white;
     border-left: 2px solid black;
     border-right: transparent;
