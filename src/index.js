@@ -1,3 +1,4 @@
+// initial values
 let currentComic = 2;
 let displayNumber = 3;
 let timerId;
@@ -10,29 +11,29 @@ let timerId;
  * @return {Array} - the array of comic numbers to load
  */
 function getComicNumbers(currentComic, displayNumber) {
-  const processNumber = (n) => {
-    if (n > 2475) {
-      return n - 2475;
-    } else if (n < 1) {
-      return 2475 + n;
-    }
-    return n;
-  };
+    const processNumber = (n) => {
+        if (n > 2475) {
+            return n - 2475;
+        } else if (n < 1) {
+            return 2475 + n;
+        }
+        return n;
+    };
 
-  let comicNumbers = [currentComic];
-  if (displayNumber === 5) {
-    comicNumbers = [
-      currentComic - 2,
-      currentComic - 1,
-      currentComic,
-      currentComic + 1,
-      currentComic + 2
-    ];
-  } else if (displayNumber === 3) {
-    comicNumbers = [currentComic - 1, currentComic, currentComic + 1];
-  }
-  let processedComicNumbers = comicNumbers.map((x) => processNumber(x));
-  return processedComicNumbers;
+    let comicNumbers = [currentComic];
+    if (displayNumber === 5) {
+        comicNumbers = [
+            currentComic - 2,
+            currentComic - 1,
+            currentComic,
+            currentComic + 1,
+            currentComic + 2
+        ];
+    } else if (displayNumber === 3) {
+        comicNumbers = [currentComic - 1, currentComic, currentComic + 1];
+    }
+    let processedComicNumbers = comicNumbers.map((x) => processNumber(x));
+    return processedComicNumbers;
 }
 
 /**
@@ -43,37 +44,43 @@ function getComicNumbers(currentComic, displayNumber) {
  * @return {void}
  */
 async function updateComicPage(currentComic, displayNumber) {
-  const insertTitle = (parentDivId, data) => {
-    let titleDiv = document.getElementById(parentDivId);
-    titleDiv.innerHTML = data.title;
-  };
+    const insertTitle = (parentDivId, title) => {
+        let titleDiv = document.getElementById(parentDivId);
+        titleDiv.innerHTML = title;
+    };
 
-  const insertImg = (parentDivId, data) => {
-    let imgDiv = document.getElementById(parentDivId);
-    imgDiv.innerHTML = ""; // clear any existing image
-    let img = document.createElement("img");
-    img.alt = data.alt;
-    img.src = data.img;
-    imgDiv.appendChild(img);
-  };
+    const insertImg = (parentDivId, data) => {
+        let imgDiv = document.getElementById(parentDivId);
+        imgDiv.innerHTML = ""; // clear any existing image
+        let img = document.createElement("img");
+        img.alt = data.alt;
+        img.src = data.img;
+        imgDiv.appendChild(img);
+    };
 
-  let comicNumbers = getComicNumbers(currentComic, displayNumber);
-  console.log("updateComicPage", comicNumbers);
+    const insertIndexNumber = (parentDivId, number) => {
+        let numberDiv = document.getElementById(parentDivId);
+        numberDiv.innerHTML = number;
+    };
 
-  const comicData = await Promise.all(
-    // consolidate multiple API calls into 1 promise
-    comicNumbers.map(async (comicNumber) => {
-      const res = await fetch(`https://xkcd.vercel.app/?comic=${comicNumber}`);
-      return res.json();
-    })
-  );
+    let comicNumbers = getComicNumbers(currentComic, displayNumber);
+    console.log("updateComicPage", comicNumbers);
 
-  comicData.map((x, index) => {
-    insertTitle(`comic-title-${index + 1}`, x);
-    insertImg(`comic-img-${index + 1}`, x);
-  });
+    const comicData = await Promise.all(
+        // consolidate multiple API calls into 1 promise
+        comicNumbers.map(async (comicNumber) => {
+            const res = await fetch(`https://xkcd.vercel.app/?comic=${comicNumber}`);
+            return res.json();
+        })
+    );
 
-  displayComics();
+    comicData.map((data, index) => {
+        insertTitle(`comic-title-${index + 1}`, data.title);
+        insertImg(`comic-img-${index + 1}`, data);
+        insertIndexNumber(`comic-index-${index + 1}`, data.num);
+    });
+
+    displayComics();
 }
 
 /**
@@ -82,9 +89,9 @@ async function updateComicPage(currentComic, displayNumber) {
  * @return {void}
  */
 function loadPrevComics() {
-  displayLoading();
-  currentComic -= displayNumber;
-  updateComicPage(currentComic, displayNumber);
+    displayLoading();
+    currentComic -= displayNumber;
+    updateComicPage(currentComic, displayNumber);
 }
 
 /**
@@ -93,9 +100,9 @@ function loadPrevComics() {
  * @return {void}
  */
 function loadNextComics() {
-  displayLoading();
-  currentComic += displayNumber;
-  updateComicPage(currentComic, displayNumber);
+    displayLoading();
+    currentComic += displayNumber;
+    updateComicPage(currentComic, displayNumber);
 }
 
 /**
@@ -103,16 +110,16 @@ function loadNextComics() {
  * @return {void}
  */
 function loadRandomComics() {
-  displayLoading();
+    displayLoading();
 
-  const getRandomIntInclusive = (min, max) => {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  };
+    const getRandomIntInclusive = (min, max) => {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    };
 
-  currentComic = getRandomIntInclusive(1, 2475);
-  updateComicPage(currentComic, displayNumber);
+    currentComic = getRandomIntInclusive(1, 2475);
+    updateComicPage(currentComic, displayNumber);
 }
 
 /**
@@ -121,9 +128,9 @@ function loadRandomComics() {
  * @return {void}
  */
 function enterSearch() {
-  if (event.keyCode === 13) {
-    document.getElementById("search-button").click();
-  }
+    if (event.keyCode === 13) {
+        document.getElementById("search-button").click();
+    }
 }
 
 /**
@@ -132,16 +139,16 @@ function enterSearch() {
  * @return {void}
  */
 function goToComicNo() {
-  let comicNo = document.getElementById("search-box").value;
-  console.log("goToComicNo", comicNo);
-  if (isNaN(comicNo) || comicNo < 1 || comicNo > 2475) {
-    let errorMsg = document.querySelector("#error-bar");
-    errorMsg.classList.remove("hidden");
-  } else {
-    displayLoading();
-    currentComic = +comicNo;
-    updateComicPage(currentComic, displayNumber);
-  }
+    let comicNo = document.getElementById("search-box").value;
+    console.log("goToComicNo", comicNo);
+    if (isNaN(comicNo) || comicNo < 1 || comicNo > 2475) {
+        let errorMsg = document.querySelector("#error-bar");
+        errorMsg.classList.remove("hidden");
+    } else {
+        displayLoading();
+        currentComic = +comicNo;
+        updateComicPage(currentComic, displayNumber);
+    }
 }
 
 /**
@@ -149,21 +156,22 @@ function goToComicNo() {
  * @return {void}
  */
 function changeDisplayNumber() {
-  displayLoading();
-  let dropdownValue = document.getElementById("comic-no-dropdown").value;
-  console.log("changeDisplayNumber", displayNumber);
-  displayNumber = +dropdownValue;
+    displayLoading();
+    let dropdownValue = document.getElementById("comic-no-dropdown").value;
+    console.log("changeDisplayNumber", displayNumber);
+    displayNumber = +dropdownValue;
 
-  let comicSection = document.getElementById("comic-section");
-  comicSection.innerHTML = "";
-  for (const i of Array.from({ length: displayNumber }, (_, i) => i + 1)) {
-    let newDiv = `<div id="comic-tile-${i}" class="comic-tile">
+    let comicSection = document.getElementById("comic-section");
+    comicSection.innerHTML = "";
+    for (const i of Array.from({ length: displayNumber }, (_, i) => i + 1)) {
+        let newDiv = `<div id="comic-tile-${i}" class="comic-tile">
                             <div id="comic-title-${i}" class="comic-title"></div>
                             <div id="comic-img-${i}" class="comic-img"></div>
+                            <div id="comic-index-${i}" class="comic-index"></div>
                         </div>`;
-    comicSection.innerHTML += newDiv;
-  }
-  updateComicPage(currentComic, displayNumber);
+        comicSection.innerHTML += newDiv;
+    }
+    updateComicPage(currentComic, displayNumber);
 }
 
 /**
@@ -171,14 +179,14 @@ function changeDisplayNumber() {
  * @return {void}
  */
 function displayLoading() {
-  clearTimeout(timerId);
-  document.getElementById("search-box").value = "";
-  let errorMsg = document.querySelector("#error-bar");
-  errorMsg.classList.add("hidden");
-  let section = document.querySelector("#comic-section");
-  section.classList.add("hidden");
-  let loading = document.querySelector("#loading-bar");
-  loading.classList.remove("hidden");
+    clearTimeout(timerId);
+    document.getElementById("search-box").value = "";
+    let errorMsg = document.querySelector("#error-bar");
+    errorMsg.classList.add("hidden");
+    let section = document.querySelector("#comic-section");
+    section.classList.add("hidden");
+    let loading = document.querySelector("#loading-bar");
+    loading.classList.remove("hidden");
 }
 
 /**
@@ -187,30 +195,34 @@ function displayLoading() {
  * @return {void}
  */
 function displayComics() {
-  const showComics = () => {
-    let loading = document.querySelector("#loading-bar");
-    loading.classList.add("hidden");
-    let comicSection = document.querySelector("#comic-section");
-    comicSection.classList.remove("hidden");
-  };
-  timerId = setTimeout(showComics, 1500);
+    const showComics = () => {
+        let loading = document.querySelector("#loading-bar");
+        loading.classList.add("hidden");
+        let comicSection = document.querySelector("#comic-section");
+        comicSection.classList.remove("hidden");
+    };
+    timerId = setTimeout(showComics, 1500);
 }
 
-// event listeners
-document
-  .getElementById("prev-button")
-  .addEventListener("click", loadPrevComics);
-document
-  .getElementById("random-button")
-  .addEventListener("click", loadRandomComics);
-document
-  .getElementById("next-button")
-  .addEventListener("click", loadNextComics);
-document.getElementById("search-box").addEventListener("keydown", enterSearch);
-document.getElementById("search-button").addEventListener("click", goToComicNo);
-document
-  .getElementById("comic-no-dropdown")
-  .addEventListener("change", changeDisplayNumber);
+window.onload = function () {
+    // event listeners
+    document
+        .getElementById("prev-button")
+        .addEventListener("click", loadPrevComics);
+    document
+        .getElementById("random-button")
+        .addEventListener("click", loadRandomComics);
+    document
+        .getElementById("next-button")
+        .addEventListener("click", loadNextComics);
+    document.getElementById("search-box").addEventListener("keydown", enterSearch);
+    document.getElementById("search-button").addEventListener("click", goToComicNo);
+    document
+        .getElementById("comic-no-dropdown")
+        .addEventListener("change", changeDisplayNumber);
 
-// page first load
-updateComicPage(currentComic, displayNumber);
+    // page first load
+    updateComicPage(currentComic, displayNumber);
+}
+
+
