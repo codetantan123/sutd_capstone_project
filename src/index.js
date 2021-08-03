@@ -204,25 +204,24 @@ function displayComics() {
     timerId = setTimeout(showComics, 1500);
 }
 
-window.onload = function () {
-    // event listeners
-    document
-        .getElementById("prev-button")
-        .addEventListener("click", loadPrevComics);
-    document
-        .getElementById("random-button")
-        .addEventListener("click", loadRandomComics);
-    document
-        .getElementById("next-button")
-        .addEventListener("click", loadNextComics);
-    document.getElementById("search-box").addEventListener("keydown", enterSearch);
-    document.getElementById("search-button").addEventListener("click", goToComicNo);
-    document
-        .getElementById("comic-no-dropdown")
-        .addEventListener("change", changeDisplayNumber);
+// event listeners
+document
+    .getElementById("prev-button")
+    .addEventListener("click", loadPrevComics);
+document
+    .getElementById("random-button")
+    .addEventListener("click", loadRandomComics);
+document
+    .getElementById("next-button")
+    .addEventListener("click", loadNextComics);
+document.getElementById("search-box").addEventListener("keydown", enterSearch);
+document.getElementById("search-button").addEventListener("click", goToComicNo);
+document
+    .getElementById("comic-no-dropdown")
+    .addEventListener("change", changeDisplayNumber);
 
-    // page first load
-    updateComicPage(currentComic, displayNumber);
-}
+// page first load
+updateComicPage(currentComic, displayNumber);
+
 
 
