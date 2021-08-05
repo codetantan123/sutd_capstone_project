@@ -190,7 +190,7 @@ body {
   }
 
 #img-modal {
-  display: block; 
+  display: none; 
   position: fixed; 
   z-index: 1; 
   padding-top: 100px; 
@@ -203,7 +203,7 @@ body {
   background-color: rgba(0,0,0,0.9); 
 }
 
-.img-modal-content {
+#img-modal-content {
   margin: auto;
   display: block;
   /* width: 80%; */
@@ -222,7 +222,7 @@ body {
   height: 150px;
 }
 
-.img-modal-content, #caption {
+#img-modal-content, #img-modal-caption {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
@@ -232,7 +232,7 @@ body {
   to {transform:scale(1)}
 }
 
-.img-modal-close {
+#img-modal-close {
   position: absolute;
   top: 15px;
   right: 35px;
@@ -242,15 +242,15 @@ body {
   transition: 0.3s;
 }
 
-.img-modal-close:hover,
-.img-modal-close:focus {
+#img-modal-close:hover,
+#img-modal-close:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
 }
 
 @media only screen and (max-width: 800px){
-  .img-modal-content {
+  #img-modal-content {
     width: 90%;
   }
 }
