@@ -1,6 +1,7 @@
 // initial values
 let currentComic = 2;
 let displayNumber = 3;
+let xkcdLastComicNumber = 2498;
 let timerId;
 
 /**
@@ -11,11 +12,15 @@ let timerId;
  * @return {Array} - the array of comic numbers to load
  */
 function getComicNumbers(currentComic, displayNumber) {
+    const modulo = (n, m) => {
+        return ((n % m) + m) % m;
+    }
+
     const processNumber = (n) => {
-        if (n > 2475) {
-            return n - 2475;
-        } else if (n < 1) {
-            return 2475 + n;
+        if (n === 0) {
+            return xkcdLastComicNumber;
+        } else if ((n > xkcdLastComicNumber) || (n < 1)) {
+            return modulo(n, xkcdLastComicNumber);
         }
         return n;
     };
@@ -37,6 +42,30 @@ function getComicNumbers(currentComic, displayNumber) {
 }
 
 /**
+ * Opens up a modal of the zoomed-in image when an image is clicked
+ * @return {void}
+ */
+function zoomInImage(parentDivId, src, alt) {
+    console.log('entered zoomInImage')
+    let modalDiv = `<div id="img-modal">
+                        <span class="img-modal-close" onclick="closeImageModal()">&times;</span>
+                        <img class="img-modal-content" src="${src}">
+                        <div id="img-modal-caption">${alt}</div>
+                    </div>`;
+    let imgDiv = document.getElementById(parentDivId);
+    imgDiv.innerHTML += modalDiv;
+}
+
+/**
+ * Removes the image modal when the close button is clicked
+ * @return {void}
+ */
+function closeImageModal() {
+    let modalDiv = document.getElementById("img-modal")
+    modalDiv.remove();
+}
+
+/**
  * Inserts the image and title DOMS into the placeholder divs after finish fetching the data,
  * then calls the displayComics function
  * @param {number} currentComic - selected comic number
@@ -53,8 +82,11 @@ async function updateComicPage(currentComic, displayNumber) {
         let imgDiv = document.getElementById(parentDivId);
         imgDiv.innerHTML = ""; // clear any existing image
         let img = document.createElement("img");
-        img.alt = data.alt;
+        img.alt = data.safe_title;
         img.src = data.img;
+        img.title = data.safe_title;
+        img.className = "xkcd-img"
+        img.setAttribute('onclick', `zoomInImage("${parentDivId}","${data.img}","${data.safe_title}")`);
         imgDiv.appendChild(img);
     };
 
