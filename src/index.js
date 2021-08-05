@@ -180,7 +180,7 @@ function enterSearch() {
 function goToComicNo() {
     let comicNo = document.getElementById("search-box").value;
     console.log("goToComicNo", comicNo);
-    if (isNaN(comicNo) || comicNo < 1 || comicNo > 2475) {
+    if (isNaN(comicNo) || comicNo < 1 || comicNo > xkcdLastComicNumber) {
         let errorMsg = document.querySelector("#error-bar");
         errorMsg.classList.remove("hidden");
     } else {
