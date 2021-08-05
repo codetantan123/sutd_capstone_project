@@ -45,15 +45,13 @@ function getComicNumbers(currentComic, displayNumber) {
  * Opens up a modal of the zoomed-in image when an image is clicked
  * @return {void}
  */
-function zoomInImage(parentDivId, src, alt) {
-    console.log('entered zoomInImage')
-    let modalDiv = `<div id="img-modal">
-                        <span class="img-modal-close" onclick="closeImageModal()">&times;</span>
-                        <img class="img-modal-content" src="${src}">
-                        <div id="img-modal-caption">${alt}</div>
-                    </div>`;
-    let imgDiv = document.getElementById(parentDivId);
-    imgDiv.innerHTML += modalDiv;
+function zoomInImage(src, alt) {
+    let imgModal = document.getElementById("img-modal");
+    let modalContent = document.getElementById("img-modal-content");
+    let modalCaption = document.getElementById("img-modal-caption");
+    modalContent.src = src;
+    modalCaption.innerHTML = alt;
+    imgModal.style.display = "block";
 }
 
 /**
@@ -61,8 +59,8 @@ function zoomInImage(parentDivId, src, alt) {
  * @return {void}
  */
 function closeImageModal() {
-    let modalDiv = document.getElementById("img-modal")
-    modalDiv.remove();
+    let imgModal = document.getElementById("img-modal");
+    imgModal.style.display = "none";
 }
 
 /**
@@ -86,7 +84,13 @@ async function updateComicPage(currentComic, displayNumber) {
         img.src = data.img;
         img.title = data.safe_title;
         img.className = "xkcd-img"
-        img.setAttribute('onclick', `zoomInImage("${parentDivId}","${data.img}","${data.safe_title}")`);
+        if (img.addEventListener) {
+            img.addEventListener('click', function (...params) {
+                return function () {
+                    zoomInImage(...params);
+                }
+            }(data.img, data.safe_title));
+        }
         imgDiv.appendChild(img);
     };
 
@@ -263,6 +267,9 @@ document.getElementById("search-button").addEventListener("click", goToComicNo);
 document
     .getElementById("comic-no-dropdown")
     .addEventListener("change", changeDisplayNumber);
+document
+    .getElementById("img-modal-close")
+    .addEventListener("click", closeImageModal);
 
 // page first load
 updateComicPage(currentComic, displayNumber);
